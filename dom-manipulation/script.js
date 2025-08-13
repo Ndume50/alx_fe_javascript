@@ -27,4 +27,16 @@ function showRandomQuote() {
   `;
 }
 
+const quotes = [
+  { text: "Quote 1 text", category: "Inspiration" },
+  { text: "Quote 2 text", category: "Motivation" },
+];
+
+function addQuote(text, category) {
+  quotes.push({ text, category });
+  console.log(`Added quote: "${text}" in category "${category}"`);
+}
+
+
+
 
