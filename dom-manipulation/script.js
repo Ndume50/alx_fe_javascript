@@ -12,3 +12,9 @@ const quotes = [
   { text: "Quote 3 text", category: "Inspiration" },
 ];
 
+function displayRandomQuote(quotes) {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const randomQuote = quotes[randomIndex];
+  console.log(`Text: ${randomQuote.text}, Category: ${randomQuote.category}`);
+  // You could also display this in the HTML instead of console.log
+}
