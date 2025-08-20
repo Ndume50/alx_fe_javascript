@@ -1,15 +1,1 @@
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
 
-#content-list {
-  margin-top: 20px;
-}
-
-.content-item {
-  background-color: #f0f0f0;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-}
