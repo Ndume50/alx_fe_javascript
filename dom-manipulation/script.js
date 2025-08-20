@@ -208,3 +208,19 @@ document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 // Initialize
 populateCategories();
 filterQuotes();
+
+
+function addQuote() {
+  const newQuoteText = document.getElementById('newQuoteText').value.trim();
+  const newQuoteCategory = document.getElementById('newQuoteCategory').value.trim();
+  
+  if (newQuoteText !== '' && newQuoteCategory !== '') {
+    quotes.push({ text: newQuoteText, category: newQuoteCategory });
+    saveQuotesToStorage();
+    populateCategories(); // Updates categories in dropdown
+    filterQuotes(); // Reapply filter with updated quotes
+    document.getElementById('newQuoteText').value = '';
+    document.getElementById('newQuoteCategory').value = '';
+  }
+}
+
