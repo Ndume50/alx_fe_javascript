@@ -177,7 +177,6 @@ function showRandomQuote() {
     <p><strong>Category:</strong> ${quote.category}</p>
   `;
 }
-
 function filterQuotes() {
   currentCategory = document.getElementById('categoryFilter').value;
   if (currentCategory === 'all') {
@@ -188,19 +187,15 @@ function filterQuotes() {
   saveQuotesToStorage();
   showRandomQuote();
 }
-function addQuote() {
-  const newQuoteText = document.getElementById('newQuoteText').value.trim();
-  const newQuoteCategory = document.getElementById('newQuoteCategory').value.trim();
-  
   if (newQuoteText !== '' && newQuoteCategory !== '') {
     quotes.push({ text: newQuoteText, category: newQuoteCategory });
     saveQuotesToStorage();
-    populateCategories();
-    filterQuotes();
+    populateCategories(); // Updates categories in dropdown
+    filterQuotes(); // Reapply filter with updated quotes
     document.getElementById('newQuoteText').value = '';
     document.getElementById('newQuoteCategory').value = '';
   }
-}
+
 
 // Event listener for "Show New Quote" button
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
@@ -210,27 +205,6 @@ populateCategories();
 filterQuotes();
 
 
-function addQuote() {
-  const newQuoteText = document.getElementById('newQuoteText').value.trim();
-  const newQuoteCategory = document.getElementById('newQuoteCategory').value.trim();
-  
-  if (newQuoteText !== '' && newQuoteCategory !== '') {
-    quotes.push({ text: newQuoteText, category: newQuoteCategory });
-    saveQuotesToStorage();
-    populateCategories(); // Updates categories in dropdown
-    filterQuotes(); // Reapply filter with updated quotes
-    document.getElementById('newQuoteText').value = '';
-    document.getElementById('newQuoteCategory').value = '';
-  }
-}
 
-function filterQuotes() {
-  currentCategory = document.getElementById('categoryFilter').value;
-  if (currentCategory === 'all') {
-    filteredQuotes = quotes;
-  } else {
-    filteredQuotes = quotes.filter(quote => quote.category === currentCategory);
-  }
-  saveQuotesToStorage();
-  showRandomQuote();
-}
+
+
