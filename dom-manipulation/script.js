@@ -87,11 +87,9 @@ function addQuote() {
 
 // Import quotes from JSON
 function importQuotes() {
-  const fileInput = document.createElement('input');
-  fileInput.type = 'file';
-  fileInput.accept = '.json';
-  fileInput.onchange = (e) => {
-    const file = e.target.files[0];
+  const fileInput = document.getElementById('importFile');
+  const file = fileInput.files[0];
+  if (file) {
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
@@ -102,11 +100,11 @@ function importQuotes() {
       } catch (error) {
         alert('Error importing quotes. Check JSON format.');
       }
-  };
+    };
     reader.readAsText(file);
-  };
-  fileInput.click();
+  }
 }
+
 
 // Export quotes to JSON
 function exportQuotes() {
