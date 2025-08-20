@@ -208,3 +208,15 @@ filterQuotes();
 
 
 
+function filterQuotes() {
+  currentCategory = document.getElementById('categoryFilter').value;
+  if (currentCategory === 'all') {
+    filteredQuotes = quotes;
+  } else {
+    filteredQuotes = quotes.filter(quote => quote.category === currentCategory);
+  }
+  saveQuotesToStorage();
+  showRandomQuote();
+}
+
+
