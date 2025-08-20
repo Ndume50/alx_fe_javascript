@@ -141,3 +141,70 @@ showRandomQuote();
     };
     fileReader.readAsText(event.target.files[0]);
   }
+
+
+  let quotes = JSON.parse(localStorage.getItem('quotes')) || [
+  { text: "Believe you can and you're halfway there.", category: "Inspiration" },
+  { text: "The only way to do great work is to love what you do.", category: "Motivation" },
+];
+let currentCategory = localStorage.getItem('currentCategory') || 'all';
+let filteredQuotes = quotes;
+
+function saveQuotesToStorage() {
+  localStorage.setItem('quotes', JSON.stringify(quotes));
+  localStorage.setItem('currentCategory', currentCategory);
+}
+
+function populateCategories() {
+  const uniqueCategories = [...new Set(quotes.map(quote => quote.category))];
+  const categoryFilter = document.getElementById('categoryFilter');
+  categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+  uniqueCategories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    categoryFilter.appendChild(option);
+  });
+  categoryFilter.value = currentCategory;
+}
+
+function showRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+  const quote = filteredQuotes[randomIndex];
+  const quoteDisplay = document.getElementById('quoteDisplay');
+  quoteDisplay.innerHTML = `
+    <p><em>${quote.text}</em></p>
+    <p><strong>Category:</strong> ${quote.category}</p>
+  `;
+}
+
+function filterQuotes() {
+  currentCategory = document.getElementById('categoryFilter').value;
+  if (currentCategory === 'all') {
+    filteredQuotes = quotes;
+  } else {
+    filteredQuotes = quotes.filter(quote => quote.category === currentCategory);
+  }
+  saveQuotesToStorage();
+  showRandomQuote();
+}
+function addQuote() {
+  const newQuoteText = document.getElementById('newQuoteText').value.trim();
+  const newQuoteCategory = document.getElementById('newQuoteCategory').value.trim();
+  
+  if (newQuoteText !== '' && newQuoteCategory !== '') {
+    quotes.push({ text: newQuoteText, category: newQuoteCategory });
+    saveQuotesToStorage();
+    populateCategories();
+    filterQuotes();
+    document.getElementById('newQuoteText').value = '';
+    document.getElementById('newQuoteCategory').value = '';
+  }
+}
+
+// Event listener for "Show New Quote" button
+document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+
+// Initialize
+populateCategories();
+filterQuotes();
