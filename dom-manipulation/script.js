@@ -330,9 +330,27 @@ async function syncQuotes() {
 
 
 function notifyUserOfSync() {
-  const notice = document.getElementById('syncNotice');
-  notice.style.display = 'block';
+  const notice = document.createElement('div');
+  notice.textContent = "Quotes synced with server!";
+  notice.style.position = 'fixed';
+  notice.style.bottom = '20px';
+  notice.style.right = '20px';
+  notice.style.backgroundColor = '#4caf50';
+  notice.style.color = '#fff';
+  notice.style.padding = '10px 20px';
+  notice.style.borderRadius = '5px';
+  notice.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+  notice.style.zIndex = '1000';
+
+  document.body.appendChild(notice);
+
   setTimeout(() => {
-    notice.style.display = 'none';
+    document.body.removeChild(notice);
   }, 4000);
+}
+
+async function syncQuotes() {
+  const serverQuotes = await fetchQuotesFromServer();
+  saveLocalQuotes(serverQuotes);
+  notifyUserOfSync(); // ✅ This triggers the message
 }
