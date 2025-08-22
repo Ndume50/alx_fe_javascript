@@ -284,3 +284,31 @@ function notifyUserOfSync() {
   notice.style.display = 'block';
   setTimeout(() => notice.style.display = 'none', 5000);
 }
+
+async function postQuoteToServer(quoteText, category) {
+  const quoteData = {
+    text: quoteText,
+    category: category
+  };
+
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(quoteData)
+    });
+
+    const result = await response.json();
+    console.log('Quote posted successfully:', result);
+  } catch (error) {
+    console.error('Error posting quote:', error);
+  }
+}
+
+document.getElementById('addQuoteBtn').addEventListener('click', () => {
+  const quoteText = document.getElementById('quoteInput').value;
+  const category = document.getElementById('categoryInput').value;
+  postQuoteToServer(quoteText, category);
+});
