@@ -246,3 +246,41 @@ function filterQuotesByCategory(category) {
 categoryFilter.addEventListener('change', (e) => {
   filterQuotesByCategory(e.target.value);
 });
+
+
+
+async function fetchQuotesFromServer() {
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts'); // Replace with your mock endpoint
+  const data = await response.json();
+  return data.map(item => ({
+    text: item.title,
+    category: 'inspiration' // Simulate category
+  }));
+}
+
+setInterval(async () => {
+  const serverQuotes = await fetchQuotesFromServer();
+  syncWithLocalData(serverQuotes);
+}, 10000); // every 10 seconds
+
+function getLocalQuotes() {
+  return JSON.parse(localStorage.getItem('quotes')) || [];
+}
+
+function saveLocalQuotes(quotes) {
+  localStorage.setItem('quotes', JSON.stringify(quotes));
+}
+
+function syncWithLocalData(serverQuotes) {
+  const localQuotes = getLocalQuotes();
+  const mergedQuotes = [...serverQuotes]; // Server takes precedence
+
+  saveLocalQuotes(mergedQuotes);
+  notifyUserOfSync(); // Optional UI feedback
+}
+
+function notifyUserOfSync() {
+  const notice = document.getElementById('syncNotice');
+  notice.style.display = 'block';
+  setTimeout(() => notice.style.display = 'none', 5000);
+}
