@@ -327,3 +327,12 @@ async function syncQuotes() {
   saveLocalQuotes(serverQuotes);
   notifyUserOfSync();
 }
+
+
+function notifyUserOfSync() {
+  const notice = document.getElementById('syncNotice');
+  notice.style.display = 'block';
+  setTimeout(() => {
+    notice.style.display = 'none';
+  }, 4000);
+}
