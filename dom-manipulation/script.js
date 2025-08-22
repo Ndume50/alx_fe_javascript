@@ -312,3 +312,18 @@ document.getElementById('addQuoteBtn').addEventListener('click', () => {
   const category = document.getElementById('categoryInput').value;
   postQuoteToServer(quoteText, category);
 });
+
+function syncQuotes() {
+  // logic here
+}
+const syncQuotes = () => {
+  // logic here
+};
+async function syncQuotes() {
+  const serverQuotes = await fetchQuotesFromServer();
+  const localQuotes = getLocalQuotes();
+
+  // Simple conflict resolution: server wins
+  saveLocalQuotes(serverQuotes);
+  notifyUserOfSync();
+}
