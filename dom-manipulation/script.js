@@ -220,3 +220,28 @@ function filterQuotes() {
 }
 
 
+const categoryFilter = document.getElementById('categoryFilter');
+const quoteContainer = document.getElementById('quoteContainer');
+
+function displayQuotes(filteredQuotes) {
+  quoteContainer.innerHTML = ''; // Clear previous quotes
+  filteredQuotes.forEach(quote => {
+    const quoteEl = document.createElement('div');
+    quoteEl.className = 'quote';
+    quoteEl.textContent = quote.text;
+    quoteContainer.appendChild(quoteEl);
+  });
+}
+
+function filterQuotesByCategory(category) {
+  if (category === 'all') {
+    displayQuotes(quotes);
+  } else {
+    const filtered = quotes.filter(q => q.category === category);
+    displayQuotes(filtered);
+  }
+}
+
+categoryFilter.addEventListener('change', (e) => {
+  filterQuotesByCategory(e.target.value);
+});
