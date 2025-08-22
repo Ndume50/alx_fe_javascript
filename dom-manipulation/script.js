@@ -223,6 +223,8 @@ function filterQuotes() {
 const categoryFilter = document.getElementById('categoryFilter');
 const quoteContainer = document.getElementById('quoteContainer');
 
+let selectedCategory = 'all'; // Default value
+
 function displayQuotes(filteredQuotes) {
   quoteContainer.innerHTML = ''; // Clear previous quotes
   filteredQuotes.forEach(quote => {
@@ -234,12 +236,11 @@ function displayQuotes(filteredQuotes) {
 }
 
 function filterQuotesByCategory(category) {
-  if (category === 'all') {
-    displayQuotes(quotes);
-  } else {
-    const filtered = quotes.filter(q => q.category === category);
-    displayQuotes(filtered);
-  }
+  selectedCategory = category; // Update the selected category
+  const filtered = category === 'all'
+    ? quotes
+    : quotes.filter(q => q.category === selectedCategory);
+  displayQuotes(filtered);
 }
 
 categoryFilter.addEventListener('change', (e) => {
